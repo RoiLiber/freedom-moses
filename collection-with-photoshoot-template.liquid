@@ -1,0 +1,599 @@
+<a name="pagecontent" id="pagecontent" class="collection-padding"></a>
+<!--div class="container"-->
+{% paginate collection.products by section.settings.pagination_limit %}
+<div class="clearfix breadcrumb-collection collection-padding">
+  {% if section.settings.collection_breadcrumb %}
+    <div class="sixteen columns breadcrumb_text" style="font-weight: 500;" itemscope itemtype="http://schema.org/BreadcrumbList">
+      <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="item" class="breadcrumb_link"><span itemprop="name">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+      <span class="breadcrumb-divider">&#62;</span>
+      <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}" title="{{ collection.title | escape }}" itemprop="item" class="breadcrumb_link"><span itemprop="name">{{ collection.title }}</span></a></span>
+      {% if current_tags %}
+        {% for tag in current_tags %}
+          {% unless tag contains 'meta-' %}
+            <span class="breadcrumb-divider">&#62;</span>
+            <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}" title="{{ tag | escape }}" itemprop="item"><span itemprop="name">{{ tag }}</span></a></span>
+          {% endunless %}
+        {% endfor %}
+      {% endif %}
+      <span id="bc-sf-filter-top-pagination"></span>
+    </div>
+  {% endif %}
+</div>
+
+<div class="section clearfix" style="margin-top: 50px;">
+  <div class="sixteen columns">
+    {% if collection.title == 'Sunglasses' %}
+      <div class="collection-title-new-design" style="text-align: center;"> SHADES </div>
+    {% elsif collection.title == 'Paz Slides Collection' %}
+      <div class="collection-title-new-design" style="text-align: center;"> PAZ </div>
+    {% elsif collection.title == 'Kieff Clogs Collection' %}
+      <div class="collection-title-new-design" style="text-align: center;"> KIEFF</div>
+    {% elsif collection.title == 'Kush Slippers Collection' %}
+      <div class="collection-title-new-design" style="text-align: center;"> KUSH </div>
+    {% endif %}
+      <h1 id="bc-sf-filter-collection-title" style="text-align: center; {% if collection.title == "Moses B'Day Sale Collection" or collection.title == "Moses B'Day Basic Sale Collection" or collection.title == "Moses B'Day Print Sale Collection" or collection.title == "Valentine's Day Sale Collection" %}position: relative; top: 5px;{% endif %}">{{ collection.title }}</h1>
+  </div>
+</div>
+  
+<div class="with_photoshoot_collection_page_wrapper">
+  <div class="with_photoshoot_video_wrapper with_photoshoot_video_wrapp_desktop">
+    <video 
+      muted 
+      playsinline 
+      class="with_photoshoot_video_wrapper"
+      width="100%"
+      height="auto"
+      id="video-collection-page-id" 
+      data-html5-video
+      autoplay
+      loop
+      preload="auto"
+    >
+    <source src="{% if collection.title == 'Sunglasses' %}
+      https://res.cloudinary.com/freedomoses/video/upload/f_auto,q_auto/w_auto,c_scale/video/Shades_HERO_DT_sbvq6u.mp4
+    {% elsif collection.title == 'Paz Slides Collection' %}
+      https://res.cloudinary.com/freedomoses/video/upload/f_auto,q_auto/new%20collection%20layout/Paz%20slides%20collection/PAZ_Main_video_ljarqt.mp4
+    {% elsif collection.title == 'Kieff Clogs Collection' %}
+      https://res.cloudinary.com/freedomoses/video/upload/f_auto,q_auto/new%20collection%20layout/Kieff%20Clogs%20collection/KIEFF_Main_video_qdqqcj.mp4
+    {% elsif collection.title == 'Kush Slippers Collection' %}
+      https://res.cloudinary.com/freedomoses/video/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_Main_video_mvebqb.mp4
+    {% endif %}" type="video/mp4"/>
+    <source src="movie.ogg" type="video/ogg" />
+    Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="with_photoshoot_video_wrapper with_photoshoot_video_wrapp_mobile">
+    <video 
+      muted 
+      playsinline 
+      class="with_photoshoot_video_wrapper"
+      width="100%"
+      height="auto"
+      id="video-collection-page-id" 
+      data-html5-video
+      autoplay
+      loop
+      preload="auto"
+    >
+    <source src="{% if collection.title == 'Sunglasses' %}
+      https://res.cloudinary.com/freedomoses/video/upload/f_auto,q_auto/w_auto,c_scale/video/Shades_HERO_DT_sbvq6u.mp4
+    {% elsif collection.title == 'Paz Slides Collection' %}
+      https://res.cloudinary.com/freedomoses/video/upload/f_auto,q_auto/new%20collection%20layout/Paz%20slides%20collection/PAZ_Mobile_Main_video_rhkvj5.mp4
+    {% elsif collection.title == 'Kieff Clogs Collection' %}
+      https://res.cloudinary.com/freedomoses/video/upload/f_auto,q_auto/new%20collection%20layout/Kieff%20Clogs%20collection/KIEFF_Mobile_Main_video_hbv6c0.mp4
+    {% elsif collection.title == 'Kush Slippers Collection' %}
+      https://res.cloudinary.com/freedomoses/video/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_Mobile_Main_video_pfoeky.mp4
+    {% endif %}" type="video/mp4"/>
+    <source src="movie.ogg" type="video/ogg" />
+    Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="with_photoshoot_products_wrapper">
+
+    {% if collection.title == 'Paz Slides Collection' or collection.title == 'Kieff Clogs Collection' or collection.title == 'Kush Slippers Collection' %}
+    <div class="with_photoshoot_color_buttons_wrapper">
+      <div class="with_photoshoot_scroll_color_button_wrapper"><button style="background-color: {% if collection.title == 'Paz Slides Collection' %}#ceb69c{% elsif collection.title == 'Kieff Clogs Collection' %}#ceb69c{% elsif collection.title == 'Kush Slippers Collection' %}#e0ccba;{% endif %}" id="photoshootCollectionScrollColorButton1" class="with_photoshoot_scroll_color_button" onclick='photoshootCollectionScroll("photoshootCollectionProduct1")'/></div>
+      <div class="with_photoshoot_scroll_color_button_wrapper"><button style="{% if collection.title == 'Paz Slides Collection' %}background-color: #cbaa59{% elsif collection.title == 'Kieff Clogs Collection' %}background-image: url('https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/wildcat_kieff_button_svhstu.jpg');{% elsif collection.title == 'Kush Slippers Collection' %}background-color: #fea086;{% endif %}" id="photoshootCollectionScrollColorButton2" class="with_photoshoot_scroll_color_button" onclick='photoshootCollectionScroll("photoshootCollectionProduct2")'/></div>
+      <div class="with_photoshoot_scroll_color_button_wrapper"><button style="background-color: {% if collection.title == 'Paz Slides Collection' %}#131313{% elsif collection.title == 'Kieff Clogs Collection' %}#131313{% elsif collection.title == 'Kush Slippers Collection' %}#f26a80;{% endif %}" id="photoshootCollectionScrollColorButton3" class="with_photoshoot_scroll_color_button" onclick='photoshootCollectionScroll("photoshootCollectionProduct3")'/></div>
+      {% if collection.title == 'Kush Slippers Collection' %}
+      <div class="with_photoshoot_open_color_button_wrapper"><button id="photoshootCollectionOpenColorsButton" class="with_photoshoot_arrow_color_button" onclick="toggleClassForColorsButton()"/>&#10094;</div>
+      {% endif %}
+    </div>
+    {% endif %}
+    {% if collection.title == 'Kush Slippers Collection' %}
+    <div class="with_photoshoot_color_hideen_buttons_wrapper" id="with_photoshoot_color_hideen_buttons_wrapper">
+      <div class="with_photoshoot_scroll_color_button_wrapper"><button style="background-color: #ab648c;" id="photoshootCollectionScrollColorButton4" class="with_photoshoot_scroll_color_button" onclick='photoshootCollectionScroll("photoshootCollectionProduct4")'/></div>
+      <div class="with_photoshoot_scroll_color_button_wrapper"><button style="background-color: #7b232a;" id="photoshootCollectionScrollColorButton5" class="with_photoshoot_scroll_color_button" onclick='photoshootCollectionScroll("photoshootCollectionProduct5")'/></div>
+      <div class="with_photoshoot_scroll_color_button_wrapper"><button style="background-color: #3e442f;" id="photoshootCollectionScrollColorButton6" class="with_photoshoot_scroll_color_button" onclick='photoshootCollectionScroll("photoshootCollectionProduct6")'/></div>
+      <div class="with_photoshoot_scroll_color_button_wrapper"><button style="background-color: #131313;" id="photoshootCollectionScrollColorButton7" class="with_photoshoot_scroll_color_button" onclick='photoshootCollectionScroll("photoshootCollectionProduct7")'/></div>
+    </div>
+    <div class="with_photoshoot_color_hideen_buttons_wrapper" id="with_photoshoot_color_hideen_buttons_wrapper_2">
+      
+    </div>
+    {% endif %}
+
+    <div style="width: 100%; position: relative; bottom: 80px;" id="photoshootCollectionProduct1"></div>
+    <div class="with_photoshoot_product_wrapp product_1">
+      <div class="with_photoshoot_product_img {% if collection.title == 'Sunglasses' %}sun_hp_product_img{% endif %}">
+        <img alt="pruduct img 1" 
+          src="{% if collection.title == 'Sunglasses' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/sunglasses/ACID_FRONT_NS_wzrpez.jpg
+          {% elsif collection.title == 'Paz Slides Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Paz%20slides%20collection/PAZ_01_dusinu.jpg
+          {% elsif collection.title == 'Kieff Clogs Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kieff%20Clogs%20collection/KIEFF_01_wjaenw.jpg
+          {% elsif collection.title == 'Kush Slippers Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_01_evoakh.jpg
+          {% endif %}" 
+          width="100%"
+          height="auto"
+        />
+        <div class="with_photoshoot_price_box {% if collection.title == 'Sunglasses' %}sun_hp_price_box{% endif %}">
+          {% if collection.title == 'Sunglasses' %}
+            <span class="with_photoshoot_price">$45.00</span>
+          {% elsif collection.title == 'Paz Slides Collection' %}
+            <span class="with_photoshoot_price">$55.00</span>
+          {% elsif collection.title == 'Kieff Clogs Collection' %}
+            <span class="with_photoshoot_price">$55.00</span>
+          {% elsif collection.title == 'Kush Slippers Collection' %}
+            <span class="with_photoshoot_price">$75.00</span>
+          {% endif %} 
+          <div class="with_photoshoot_a_button">
+            {% if collection.title == 'Sunglasses' %}
+              <a class="acid-hbg_hover" href="https://freedomoses.com/collections/sunglasses/products/sunglasses-acid">SHOP ACID</a>
+            {% elsif collection.title == 'Paz Slides Collection' %}
+              <a class="sands-hbg_hover" href="https://freedomoses.com/collections/paz-slides-collection/products/paz-sands-slides">SHOP SANDS</a>
+            {% elsif collection.title == 'Kieff Clogs Collection' %}
+              <a class="sands-hbg_hover" href="https://freedomoses.com/collections/kieff-clogs-collection/products/kieff-sands-clogs">SHOP SANDS</a>
+            {% elsif collection.title == 'Kush Slippers Collection' %}
+              <a class="latte-hbg_hover" href="https://freedomoses.com/collections/kush-slippers-collection/products/kush-latte-slippers">SHOP LATTE</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="with_photoshoot_product_model">
+        <img alt="model img 1" 
+          src="{% if collection.title == 'Sunglasses' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/sunglasses/IMG_Sunglasses_ACID_lt19h3.jpg
+          {% elsif collection.title == 'Paz Slides Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Paz%20slides%20collection/PAZ_02_gdcdbb.jpg
+          {% elsif collection.title == 'Kieff Clogs Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kieff%20Clogs%20collection/KIEFF_02_o4g3qn.jpg
+          {% elsif collection.title == 'Kush Slippers Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_02_pkbudt.jpg
+          {% endif %}" 
+          width="100%"
+          height="auto"
+        />
+      </div>
+    </div>
+    <div style="width: 100%; position: relative; bottom: 80px;" id="photoshootCollectionProduct2"></div>
+    <div class="with_photoshoot_product_wrapp product_2">
+      <div class="with_photoshoot_product_model">
+        <img alt="model img 2" 
+          src="{% if collection.title == 'Sunglasses' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/sunglasses/YOSEHAB-WHISKEY-HI_ruspty.jpg
+          {% elsif collection.title == 'Paz Slides Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Paz%20slides%20collection/PAZ_03_jtgfev.jpg
+          {% elsif collection.title == 'Kieff Clogs Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kieff%20Clogs%20collection/KIEFF_03_dj6fbk.jpg
+          {% elsif collection.title == 'Kush Slippers Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_03_ivnp8d.jpg
+          {% endif %}" 
+          width="100%"
+          height="auto"
+        />
+      </div>
+      <div class="with_photoshoot_product_img {% if collection.title == 'Sunglasses' %}sun_hp_product_img{% endif %}">
+        <img alt="pruduct img 2" 
+          src="
+          {% if collection.title == 'Sunglasses' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/sunglasses/WHISEY_FRONT_NS_vjczcf.jpg
+          {% elsif collection.title == 'Paz Slides Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Paz%20slides%20collection/PAZ_04_gzrc1o.jpg
+          {% elsif collection.title == 'Kieff Clogs Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kieff%20Clogs%20collection/KIEFF_04_ubswve.jpg
+          {% elsif collection.title == 'Kush Slippers Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_04_o47ml9.jpg
+          {% endif %}" 
+          width="100%"
+          height="auto"
+        />
+        <div class="with_photoshoot_price_box {% if collection.title == 'Sunglasses' %}sun_hp_price_box{% endif %}">
+          {% if collection.title == 'Sunglasses' %}
+            <span class="with_photoshoot_price">$45.00</span>
+          {% elsif collection.title == 'Paz Slides Collection' %}
+            <span class="with_photoshoot_price">$60.00</span>
+          {% elsif collection.title == 'Kieff Clogs Collection' %}
+            <span class="with_photoshoot_price">$65.00</span>
+          {% elsif collection.title == 'Kush Slippers Collection' %}
+            <span class="with_photoshoot_price">$75.00</span>
+          {% endif %}
+          <div class="with_photoshoot_a_button">
+            {% if collection.title == 'Sunglasses' %}
+              <a class="aura-hbg_hover" href="https://freedomoses.com/collections/sunglasses/products/sunglasses-whiskey">SHOP WHISKEY</a>
+            {% elsif collection.title == 'Paz Slides Collection' %}
+              <a class="aura-hbg_hover" href="https://freedomoses.com/collections/paz-slides-collection/products/paz-aura-slides">SHOP AURA</a>
+            {% elsif collection.title == 'Kieff Clogs Collection' %}
+              <a class="sands-hbg_hover" href="https://freedomoses.com/collections/kieff-clogs-collection/products/kieff-wildcat-sands-clogs">SHOP WILDCAT</a>
+            {% elsif collection.title == 'Kush Slippers Collection' %}
+              <a class="bloom-hbg_hover" href="https://freedomoses.com/collections/kush-slippers-collection/products/kush-bloom-slippers">SHOP BLOOM</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if collection.title == 'Paz Slides Collection' or collection.title == 'Kieff Clogs Collection' or collection.title == 'Kush Slippers Collection' %}
+    <div style="width: 100%; position: relative; bottom: 80px;" id="photoshootCollectionProduct3"></div>
+    <div class="with_photoshoot_product_wrapp product_3">
+      <div class="with_photoshoot_product_img">
+        <img alt="pruduct img 3" 
+          src="{% if collection.title == 'Paz Slides Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Paz%20slides%20collection/PAZ_05_smmd5s.jpg
+          {% elsif collection.title == 'Kieff Clogs Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kieff%20Clogs%20collection/KIEFF_05_zctwkx.jpg
+          {% elsif collection.title == 'Kush Slippers Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_05_eeeqxs.jpg
+          {% endif %}" 
+          width="100%"
+          height="auto"
+        />
+        <div class="with_photoshoot_price_box">
+          {% if collection.title == 'Paz Slides Collection' %}
+            <span class="with_photoshoot_price">$55.00</span>
+          {% elsif collection.title == 'Kieff Clogs Collection' %}
+            <span class="with_photoshoot_price">$55.00</span>
+          {% elsif collection.title == 'Kush Slippers Collection' %}
+            <span class="with_photoshoot_price">$75.00</span>
+          {% endif %}
+          <div class="with_photoshoot_a_button">
+            {% if collection.title == 'Paz Slides Collection' %}
+              <a class="" href="https://freedomoses.com/collections/paz-slides-collection/products/paz-black-slides">SHOP BLACK</a>
+            {% elsif collection.title == 'Kieff Clogs Collection' %}
+              <a class="" href="https://freedomoses.com/collections/kieff-clogs-collection/products/kieff-black-clogs">SHOP BLACK</a>
+            {% elsif collection.title == 'Kush Slippers Collection' %}
+              <a class="bonbon-hbg_hover" href="https://freedomoses.com/collections/kush-slippers-collection/products/kush-bonbon-slippers">SHOP BONBON</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="with_photoshoot_product_model">
+        <img alt="model img 3" 
+          src="{% if collection.title == 'Paz Slides Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Paz%20slides%20collection/PAZ_06_ct4i4d.jpg
+          {% elsif collection.title == 'Kieff Clogs Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kieff%20Clogs%20collection/KIEFF_06_kfxmpk.jpg
+          {% elsif collection.title == 'Kush Slippers Collection' %}
+            https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_06_s40uql.jpg
+          {% endif %}" 
+          width="100%"
+          height="auto"
+        />
+      </div>
+    </div>
+    {% endif %}
+    {% if collection.title == 'Kush Slippers Collection' %}
+    <div style="width: 100%; position: relative; bottom: 80px;" id="photoshootCollectionProduct4"></div>
+    <div class="with_photoshoot_product_wrapp product_4">
+      <div class="with_photoshoot_product_model">
+        <img alt="model img 4" 
+          src="https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_07_yonofj.jpg" 
+          width="100%"
+          height="auto"
+        />
+      </div>
+      <div class="with_photoshoot_product_img">
+        <img alt="pruduct img 4" 
+          src="https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_08_emhobj.jpg" 
+          width="100%"
+          height="auto"
+        />
+        <div class="with_photoshoot_price_box">
+          <span class="with_photoshoot_price">$75.00</span>
+          <div class="with_photoshoot_a_button">
+            <a class="haze-hbg_hover" href="https://freedomoses.com/collections/kush-slippers-collection/products/kush-haze-slippers">SHOP HAZE</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width: 100%; position: relative; bottom: 80px;" id="photoshootCollectionProduct5"></div>
+    <div class="with_photoshoot_product_wrapp product_5">
+      <div class="with_photoshoot_product_img">
+        <img alt="pruduct img 5" 
+          src="https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_09_vfao3l.jpg" 
+          width="100%"
+          height="auto"
+        />
+        <div class="with_photoshoot_price_box">
+          <span class="with_photoshoot_price">$75.00</span>
+          <div class="with_photoshoot_a_button">
+            <a class="vino-hbg_hover" href="https://freedomoses.com/collections/kush-slippers-collection/products/kush-vino-slippers">SHOP VINO</a>
+          </div>
+        </div>
+      </div>
+      <div class="with_photoshoot_product_model">
+        <img alt="model img 5" 
+          src="https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_10_lm4tpl.jpg" 
+          width="100%"
+          height="auto"
+        />
+      </div>
+    </div>
+    <div style="width: 100%; position: relative; bottom: 80px;" id="photoshootCollectionProduct6"></div>
+    <div class="with_photoshoot_product_wrapp product_6">
+      <div class="with_photoshoot_product_model">
+        <img alt="model img 6" 
+          src="https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_11_sysxnj.jpg" 
+          width="100%"
+          height="auto"
+        />
+      </div>
+      <div class="with_photoshoot_product_img">
+        <img alt="pruduct img 6" 
+          src="https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_12_rmrksh.jpg" 
+          width="100%"
+          height="auto"
+        />
+        <div class="with_photoshoot_price_box">
+          <span class="with_photoshoot_price">$75.00</span>
+          <div class="with_photoshoot_a_button">
+            <a class="olive-hbg_hover" href="https://freedomoses.com/collections/kush-slippers-collection/products/kush-olive-slippers">SHOP OLIVE</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width: 100%; position: relative; bottom: 80px;" id="photoshootCollectionProduct7"></div>
+    <div class="with_photoshoot_product_wrapp product_7">
+      <div class="with_photoshoot_product_img">
+        <img alt="pruduct img 7" 
+          src="https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_13_sl6wll.jpg" 
+          width="100%"
+          height="auto"
+        />
+        <div class="with_photoshoot_price_box">
+          <span class="with_photoshoot_price">$75.00</span>
+          <div class="with_photoshoot_a_button">
+            <a class="jet-hbg_hover" href="https://freedomoses.com/collections/kush-slippers-collection/products/kush-jet-slippers">SHOP JET</a>
+          </div>
+        </div>
+      </div>
+      <div class="with_photoshoot_product_model">
+        <img alt="model img 7" 
+          src="https://res.cloudinary.com/freedomoses/image/upload/f_auto,q_auto/new%20collection%20layout/Kush%20Slippers%20collection/KUSH_14_rezr0y.jpg" 
+          width="100%"
+          height="auto"
+        />
+      </div>
+    </div> 
+    {% endif %}
+  </div>
+</div>
+
+<script type="text/javascript">// <![CDATA[
+function photoshootCollectionScroll(id) {
+  let elem = "";
+  elem = document.getElementById(id);
+  elem.scrollIntoView({behavior: "smooth", block: "start", inline: "start"});				
+}
+function toggleClassForColorsButton() {
+  const buttonElement = document.getElementById("photoshootCollectionOpenColorsButton");
+  const element = document.getElementById("with_photoshoot_color_hideen_buttons_wrapper");
+  const element2 = document.getElementById("with_photoshoot_color_hideen_buttons_wrapper_2");
+  if (element.classList.contains('color_buttons_active')) {
+    // Class exists, remove it
+    element.classList.remove('color_buttons_active');
+    buttonElement.classList.remove('active_color_button');
+  } else {
+    // Class doesn't exist, add it
+    element.classList.add('color_buttons_active');
+    buttonElement.classList.add('active_color_button');
+  }
+  if (element2.classList.contains('color_buttons_active2')) {
+    // Class exists, remove it
+    element2.classList.remove('color_buttons_active2');
+  } else {
+    // Class doesn't exist, add it
+    element2.classList.add('color_buttons_active2');
+  }
+}
+</script>
+  
+<!--a name="pagecontent" id="pagecontent"></a-->
+{% endpaginate %}
+{% schema %}
+
+{
+  "name": "Collection",
+  "class": "collection-template-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "pagination_limit",
+      "label": "Products per page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "checkbox",
+      "id": "display_collection_title",
+      "label": "Show collection title"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_breadcrumb",
+      "label": "Show breadcrumb links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_tags",
+      "label": "Enable filtering by product tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_sort",
+      "label": "Enable collection sorting"
+    },
+    {
+      "type": "header",
+      "content": "Banner image"
+    },
+    {
+      "type": "checkbox",
+      "id": "featured_collection_image",
+      "label": "Show top banner image",
+      "info": "The collection's featured image will be used by default. Optionally upload a banner image as a fallback."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image",
+      "info": "1800 x 1000px recommended"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_darken",
+      "label": "Darken banner image",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_by_collection",
+      "name": "Collection list",
+      "limit": 1
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "recently_viewed",
+      "name": "Recently viewed products",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To test the recently viewed products, view your online store outside of the Editor and visit multiple product pages ([?](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115008765228))"
+        },
+        {
+          "type": "text",
+          "id": "sidebar_rv_title",
+          "label": "Title",
+          "default": "Recently Viewed"
+        },
+        {
+          "type": "range",
+          "id": "sidebar_rv_per",
+          "label": "Products limit",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 3
+        }
+      ]
+    },
+    {
+      "type": "filter",
+      "name": "Tag filter",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_name",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "filter_tags",
+          "label": "Filter tags",
+          "info": "Add a comma-separated list of product tags. Only the tags found in the collection will be displayed as filters ([?](https://help.outofthesandbox.com/hc/en-us/articles/115008642047))"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_filter_swatches",
+          "label": "Display color swatches"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_tag",
+      "name": "Tag list",
+      "limit": 1
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for special announcements or general information.</p>"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_type",
+      "name": "Type list",
+      "limit": 1
+    },
+    {
+      "type": "filter_by_vendor",
+      "name": "Vendor list",
+      "limit": 1
+    }
+  ]
+}
+
+{% endschema %}
